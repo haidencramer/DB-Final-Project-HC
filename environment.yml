@@ -1,12 +1,16 @@
 name: databaseProject
 channels:
   - conda-forge
+  - defaults
 dependencies:
   - python=3.11
-  - pandas
-  - sqlalchemy
-  - streamlit
-  - psycopg2-binary
+  - pandas=2.1.4
+  - sqlalchemy=2.0.25
+  - streamlit=1.31.0
+  - psycopg2-binary=2.9.9
   - pip
   - pip:
-      - python-dotenv
+      - python-dotenv==1.0.0
+      - networkx==3.2.1
+      - pyvis==0.3.2
+      - plotly==5.18.0

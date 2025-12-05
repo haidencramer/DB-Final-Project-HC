@@ -169,9 +169,7 @@ with st.sidebar:
 # --- Tabs ---
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["👤 Users", "🎤 Artists", "🎵 Songs", "💿 Albums", "📋 Playlists"])
 
-# ============================================
 # TAB 1: USERS CRUD
-# ============================================
 with tab1:
     st.subheader("👤 Users")
 
@@ -240,9 +238,7 @@ with tab1:
                     st.session_state.just_deleted = rec
                     st.rerun()
 
-# ============================================
 # TAB 2: ARTISTS CRUD
-# ============================================
 with tab2:
     st.subheader("🎤 Artists")
 
@@ -319,9 +315,7 @@ with tab2:
                     st.session_state.just_deleted = rec
                     st.rerun()
 
-# ============================================
 # TAB 3: SONGS CRUD
-# ============================================
 with tab3:
     st.subheader("🎵 Songs")
 
@@ -398,18 +392,15 @@ with tab3:
                     st.session_state.just_deleted = rec
                     st.rerun()
 
-# ============================================
 # TAB 4: ALBUMS (READ ONLY)
-# ============================================
 with tab4:
     st.subheader("💿 Albums")
     albums = fetch_albums()
     st.dataframe(albums, use_container_width=True)
     st.info("💡 Album CRUD coming soon! For now, you can view albums here.")
 
-# ============================================
+
 # TAB 5: PLAYLISTS CRUD
-# ============================================
 with tab5:
     st.subheader("📋 Playlists")
 

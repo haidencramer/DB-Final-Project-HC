@@ -112,9 +112,82 @@ if base64_img:
 st.title("Welcome to the World of Audioplane")
 st.caption("Your personal music database viewer")
 
+# ==================== LANDING PAGE DESCRIPTION ====================
+st.markdown("---")
+st.header("About The Audioplane Database")
+
+st.markdown("""
+**Audioplane** is a normalized relational database that models a music streaming service. The database includes information about users, songs, artists, albums, and playlists, along with the relationships between them.
+
+### Audioplane Database Layout
+The database contains the following tables:
+- **User_table**: User accounts and information
+- **Song**: Individual songs with release dates
+- **Artist**: Artist names and locations
+- **Album**: Album collections with release dates
+- **Playlist**: User-created playlists
+- **Likes**: Tracks which users like which songs 
+- **Produces**: Links artists to the songs they created 
+- **Creates**: Links users to playlists they created 
+- **Contains**: Tracks which songs are in which albums with track numbers 
+- **Records**: Links artists to albums they recorded 
+- **Saves**: Tracks which songs are in which playlists with position ordering 
+
+###  Advanced Queries Featured in This App
+
+1. **Multi-table JOINs** - The "User Likes" view in the Relationships tab joins 5 tables (Likes → User_table → Song → Produces → Artist) to show which users like which songs and who created them.
+
+2. **JOINs with Ordering** - The "Album Tracks" view joins multiple tables and orders results by album name and track number to display complete album listings.
+
+3. **Aggregations with GROUP BY** - The "Most Liked Songs" view uses COUNT with GROUP BY to calculate how many users have liked each song, showing the most popular tracks.
+
+4. **Multi-Column Aggregations** - The "User Activity" view uses COUNT DISTINCT on multiple columns with LEFT JOINs to calculate how many songs each user has liked and how many playlists they've created.
+
+5. **Artist Productivity Analysis** - In the Artists tab, a LEFT JOIN with GROUP BY shows how many songs each artist has produced.
+
+###  Visualizations
+Scroll down past the data tables to see interactive visualizations:
+- **Network Graph**: Interactive visualization of user-song relationships with color-coded nodes
+- **Pie Chart**: Top 5 most liked songs by popularity
+- **Gauge Chart**: Average number of songs per playlist
+
+###  Navigation
+Use the tabs above to explore different aspects of the database. Adjust the row limit in the sidebar to control how much data is displayed.
+
+###  Full CRUD Operations Available
+This viewer app is **read-only**. To create, update, or delete records, open the **CRUD Management Interface**:
+""")
+
+# Prominent CRUD app callout
+st.info("""
+🚀 **CRUD Interface:** To manage the database with full Create, Read, Update, and Delete operations, 
+run `streamlit run app_full_crud.py` in a new terminal window.
+
+The CRUD app provides:
+- ➕ **Create** new users, artists, songs, and playlists
+- ✏️ **Update** existing records  
+- 🗑️ **Delete** records with confirmation
+- ✅ Real-time feedback with success messages
+""")
+
+st.markdown("---")
+# ===================================================================
+
 with st.sidebar:
     st.header("Options")
     row_limit = st.number_input("Row limit", min_value=1, max_value=2000, value=200, step=50)
+    st.markdown("---")
+    
+    # CRUD App Link in Sidebar
+    st.markdown("### Database Management")
+    st.markdown("""
+    To use full CRUD operations:
+    
+    1. Open a new terminal
+    2. Run: `streamlit run app_full_crud.py`
+    3. Manage data in the CRUD interface
+    """)
+    
     st.markdown("---")
     st.caption("Night Hawk Edition")
 
@@ -423,8 +496,8 @@ if not df_rel.empty:
 else:
     st.info("No relationship data found.")
 
-# A little Pie Chart action to visualize TOP 10 most liked songs 
-st.markdown("### Top 10 Most Liked Songs")
+# A little Pie Chart action to visualize Top 5 most liked songs within Audioplane
+st.markdown("### Top 5 Most Liked Songs")
 
 sql = """
     SELECT s.songName, COUNT(l.userID) AS like_count
